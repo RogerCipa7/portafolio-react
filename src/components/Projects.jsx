@@ -47,10 +47,9 @@ function ProjectCard({ project }) {
       onMouseLeave={() => setHovered(false)}
       className={`
         relative rounded-2xl overflow-hidden backdrop-blur-md
-        transition-all duration-400
-        border
+        transition-all duration-300 border w-full
         ${project.featured
-          ? 'md:col-span-2 border-indigo-500/30 dark:border-indigo-500/30 bg-gradient-to-br from-indigo-50/80 to-white/90 dark:from-indigo-950/60 dark:to-slate-950/95'
+          ? 'md:col-span-2 border-indigo-500/30 bg-gradient-to-br from-indigo-50/80 to-white/90 dark:from-indigo-950/60 dark:to-slate-950/95'
           : 'border-slate-200/80 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/75'
         }
         ${hovered
@@ -70,51 +69,43 @@ function ProjectCard({ project }) {
       )}
 
       {/* Image */}
-      <div className="h-52 overflow-hidden relative">
+      <div className="h-48 sm:h-52 overflow-hidden relative">
         <img
           src={project.image}
           alt={project.title}
           className={`w-full h-full object-cover transition-transform duration-700 ${hovered ? 'scale-[1.07]' : 'scale-100'}`}
         />
-        {/* Overlay — más suave en light, más oscuro en dark */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-slate-100/70 dark:from-black/10 dark:via-transparent dark:to-slate-950/82" />
-
-        {/* Category chip */}
-        <div className="absolute bottom-3.5 left-4 px-3 py-1 rounded-lg text-[10px] tracking-widest uppercase backdrop-blur-md bg-white/70 dark:bg-slate-950/70 border border-indigo-200/60 dark:border-indigo-500/30 text-slate-600 dark:text-slate-300">
+        <div className="absolute bottom-3 left-4 px-3 py-1 rounded-lg text-[10px] tracking-widest uppercase backdrop-blur-md bg-white/70 dark:bg-slate-950/70 border border-indigo-200/60 dark:border-indigo-500/30 text-slate-600 dark:text-slate-300">
           {project.category}
         </div>
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-extrabold tracking-tight leading-snug mb-2.5 text-slate-900 dark:text-slate-50">
+      <div className="p-5 sm:p-6">
+        <h3 className="text-lg sm:text-xl font-extrabold tracking-tight leading-snug mb-2 text-slate-900 dark:text-slate-50">
           {project.title}
         </h3>
-        <p className="text-sm leading-relaxed mb-5 text-slate-500 dark:text-slate-400">
+        <p className="text-sm leading-relaxed mb-4 text-slate-500 dark:text-slate-400">
           {project.description}
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {project.tags.map(tag => (
             <span
               key={tag}
-              className="px-2.5 py-1 rounded-md text-[11px] font-medium tracking-wide
-                bg-slate-100 dark:bg-slate-800/85
-                border border-slate-200 dark:border-slate-700/90
-                text-slate-600 dark:text-slate-400"
+              className="px-2.5 py-1 rounded-md text-[11px] font-medium tracking-wide bg-slate-100 dark:bg-slate-800/85 border border-slate-200 dark:border-slate-700/90 text-slate-600 dark:text-slate-400"
             >
               {tag}
             </span>
           ))}
         </div>
 
-        {/* Divider */}
-        <div className="h-px mb-5 bg-slate-200 dark:bg-slate-700/50" />
+        <div className="h-px mb-4 bg-slate-200 dark:bg-slate-700/50" />
 
         {/* Buttons */}
-        <div className="flex gap-2.5">
-          {/* Ghost — Código */}
+        <div className="flex gap-2">
           <button
             onClick={() => openLink(project.github)}
             disabled={!project.github}
@@ -122,16 +113,15 @@ function ProjectCard({ project }) {
               flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-[13px] font-semibold
               border transition-all duration-200
               ${project.github
-                ? 'cursor-pointer border-slate-300 dark:border-slate-600/70 bg-slate-50 dark:bg-slate-800/70 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/80 hover:text-slate-900 dark:hover:text-white hover:border-slate-400 dark:hover:border-slate-500'
+                ? 'cursor-pointer border-slate-300 dark:border-slate-600/70 bg-slate-50 dark:bg-slate-800/70 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/80 hover:text-slate-900 dark:hover:text-white'
                 : 'cursor-not-allowed border-slate-200/60 dark:border-slate-700/30 bg-slate-50/50 dark:bg-slate-900/40 text-slate-400 dark:text-slate-600 opacity-60'
               }
             `}
           >
             <Github size={14} />
-            Código
+            <span>Código</span>
           </button>
 
-          {/* Gradient — Demo */}
           <button
             onClick={() => openLink(project.live)}
             disabled={!project.live}
@@ -139,13 +129,13 @@ function ProjectCard({ project }) {
               flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-[13px] font-semibold
               border-none transition-all duration-200
               ${project.live
-                ? 'cursor-pointer bg-gradient-to-r from-blue-600 to-emerald-500 text-white shadow-md shadow-blue-500/30 hover:from-blue-700 hover:to-emerald-600 hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-px'
+                ? 'cursor-pointer bg-gradient-to-r from-blue-600 to-emerald-500 text-white shadow-md shadow-blue-500/30 hover:from-blue-700 hover:to-emerald-600 hover:shadow-lg hover:shadow-blue-500/40'
                 : 'cursor-not-allowed bg-gradient-to-r from-slate-400 to-slate-500 dark:from-slate-600 dark:to-slate-700 text-slate-200 dark:text-slate-400 opacity-60'
               }
             `}
           >
             <ExternalLink size={14} />
-            Demo
+            <span>Demo</span>
           </button>
         </div>
       </div>
@@ -158,86 +148,109 @@ export default function Projects() {
     <section
       id="proyectos"
       aria-labelledby="projects-heading"
-      className="relative py-20 px-6 overflow-hidden
+      className="relative py-16 sm:py-20 px-4 sm:px-6
+        overflow-hidden
         bg-gradient-to-br from-slate-50 via-white to-blue-50
         dark:from-slate-900 dark:via-slate-900 dark:to-slate-950"
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap');
 
-        /* Blobs */
-        .pj-blob { position:absolute; border-radius:50%; pointer-events:none; }
+        /* Blobs — contenidos con max-width para no causar overflow */
+        .pj-blob {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+          max-width: 100vw;
+        }
         .pj-blob-1 {
-          width:600px; height:600px; top:-120px; left:-160px;
+          width: min(600px, 80vw);
+          height: min(600px, 80vw);
+          top: -80px; left: -100px;
           background: radial-gradient(circle, rgba(37,99,235,0.09) 0%, transparent 70%);
           animation: pjDriftA 14s ease-in-out infinite alternate;
         }
         .pj-blob-2 {
-          width:480px; height:480px; bottom:-80px; right:-100px;
+          width: min(480px, 70vw);
+          height: min(480px, 70vw);
+          bottom: -60px; right: -80px;
           background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
           animation: pjDriftB 17s ease-in-out infinite alternate;
         }
         .pj-blob-3 {
-          width:320px; height:320px; top:40%; left:48%;
-          transform:translate(-50%,-50%);
+          width: min(300px, 50vw);
+          height: min(300px, 50vw);
+          top: 40%; left: 48%;
+          transform: translate(-50%, -50%);
           background: radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%);
           animation: pjDriftA 20s ease-in-out infinite alternate-reverse;
         }
-        @keyframes pjDriftA { from{transform:translate(0,0)} to{transform:translate(26px,16px)} }
-        @keyframes pjDriftB { from{transform:translate(0,0)} to{transform:translate(-20px,12px)} }
+        @keyframes pjDriftA {
+          from { transform: translate(0, 0); }
+          to   { transform: translate(20px, 14px); }
+        }
+        @keyframes pjDriftB {
+          from { transform: translate(0, 0); }
+          to   { transform: translate(-16px, 10px); }
+        }
 
-        /* Subtle grid */
+        /* Grid */
         .pj-grid-bg {
-          position:absolute; inset:0; pointer-events:none;
+          position: absolute; inset: 0; pointer-events: none;
           background-image:
             linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
             linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
-          background-size:60px 60px;
-        }
-        /* In light mode barely visible */
-        :not(.dark) .pj-grid-bg {
-          background-image:
-            linear-gradient(rgba(99,102,241,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(99,102,241,0.06) 1px, transparent 1px);
+          background-size: 60px 60px;
         }
 
-        /* Projects grid */
+        /* Cards grid */
         .pj-cards {
-          display:grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap:20px;
-          margin-bottom:56px;
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 16px;
+          margin-bottom: 48px;
         }
-        @media(max-width:768px){
-          .pj-cards { grid-template-columns:1fr; }
-          .pj-cards > * { grid-column: span 1 !important; }
+        @media (min-width: 640px) {
+          .pj-cards {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+          }
         }
 
         /* Badge pulse */
-        .pj-badge { position:relative; display:inline-block; margin-bottom:20px; }
+        .pj-badge { position: relative; display: inline-block; margin-bottom: 20px; }
         .pj-badge::after {
-          content:''; position:absolute; inset:-1px; border-radius:999px;
-          background:linear-gradient(135deg,#818cf8,#34d399);
-          z-index:-1; opacity:0.35;
+          content: ''; position: absolute; inset: -1px; border-radius: 999px;
+          background: linear-gradient(135deg, #818cf8, #34d399);
+          z-index: -1; opacity: 0.35;
           animation: pjBadge 3s ease-in-out infinite;
         }
         @keyframes pjBadge {
-          0%,100%{opacity:0.25;transform:scale(1)}
-          50%{opacity:0.55;transform:scale(1.02)}
+          0%, 100% { opacity: 0.25; transform: scale(1); }
+          50%       { opacity: 0.55; transform: scale(1.02); }
         }
 
-        /* CTA pill */
+        /* CTA */
         .pj-cta {
-          display:inline-flex; align-items:center; gap:10px;
-          padding:13px 28px; border-radius:999px;
-          font-size:14px; font-weight:500; font-family:inherit;
-          cursor:pointer; text-decoration:none;
-          backdrop-filter:blur(8px);
-          transition:all 0.3s;
+          display: inline-flex; align-items: center; gap: 8px;
+          padding: 12px 20px; border-radius: 999px;
+          font-size: 13px; font-weight: 500; font-family: inherit;
+          cursor: pointer; text-decoration: none;
+          backdrop-filter: blur(8px);
+          transition: all 0.3s;
+          max-width: calc(100vw - 48px);
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        @media (min-width: 480px) {
+          .pj-cta {
+            font-size: 14px;
+            padding: 13px 28px;
+            flex-wrap: nowrap;
+          }
         }
       `}</style>
 
-      {/* Background */}
       <div className="pj-blob pj-blob-1" />
       <div className="pj-blob pj-blob-2" />
       <div className="pj-blob pj-blob-3" />
@@ -245,12 +258,12 @@ export default function Projects() {
 
       <div className="relative z-10 max-w-5xl mx-auto">
 
-        {/* ── HEADER ── */}
-        <div className="text-center mb-14">
+        {/* Header */}
+        <div className="text-center mb-10 sm:mb-14">
           <div className="pj-badge">
-            <div className="flex items-center gap-2 px-5 py-2 rounded-full text-[13px] font-semibold tracking-wide
+            <div className="flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-[13px] font-semibold tracking-wide
               bg-indigo-100/80 dark:bg-indigo-500/10
-              border border-indigo-200 dark:border-indigo-500/22
+              border border-indigo-200 dark:border-indigo-500/20
               text-indigo-700 dark:text-indigo-300
               backdrop-blur-md">
               <Sparkles size={14} />
@@ -260,7 +273,7 @@ export default function Projects() {
 
           <h2
             id="projects-heading"
-            className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight leading-tight mb-4
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-4
               text-slate-900 dark:text-slate-50"
           >
             Proyectos{' '}
@@ -269,18 +282,18 @@ export default function Projects() {
             </span>
           </h2>
 
-          <p className="text-base leading-relaxed max-w-md mx-auto text-slate-500 dark:text-slate-400">
+          <p className="text-sm sm:text-base leading-relaxed max-w-md mx-auto text-slate-500 dark:text-slate-400 px-2">
             Una colección de trabajos recientes que muestran mi experiencia
             en desarrollo web moderno.
           </p>
         </div>
 
-        {/* ── CARDS ── */}
+        {/* Cards */}
         <div className="pj-cards">
           {projects.map((p, i) => <ProjectCard key={i} project={p} />)}
         </div>
 
-        {/* ── CTA ── */}
+        {/* CTA */}
         <div className="text-center">
           <a
             href="https://github.com/RogerCipa7"
@@ -292,18 +305,16 @@ export default function Projects() {
               text-slate-600 dark:text-slate-400
               hover:border-blue-400 dark:hover:border-blue-500
               hover:text-slate-900 dark:hover:text-slate-100
-              hover:bg-white dark:hover:bg-slate-800
-              hover:shadow-lg hover:shadow-blue-100/60 dark:hover:shadow-blue-900/20
-              hover:-translate-y-0.5"
+              hover:shadow-lg hover:shadow-blue-100/60 dark:hover:shadow-blue-900/20"
           >
-            <Code size={16} className="text-blue-500 dark:text-blue-400" />
-            <span>
+            <Code size={15} className="text-blue-500 dark:text-blue-400 flex-shrink-0" />
+            <span className="text-center">
               ¿Interesado en ver más?{' '}
               <span className="font-bold bg-gradient-to-r from-blue-500 to-emerald-500 bg-clip-text text-transparent">
                 Visita mi GitHub
               </span>
             </span>
-            <ArrowRight size={14} className="text-emerald-500" />
+            <ArrowRight size={14} className="text-emerald-500 flex-shrink-0" />
           </a>
         </div>
 
