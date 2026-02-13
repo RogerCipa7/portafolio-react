@@ -1,13 +1,13 @@
 // src/components/Header.jsx
 import { useState, useEffect } from 'react';
-import { Menu, X, Home, User, Wrench, Mail, Github, Linkedin, Sun, Moon } from 'lucide-react';
-import { useTheme } from '../hooks/useTheme'; // ← Importamos el hook
+import { Menu, X, Home, User, Wrench, Mail, Github, Linkedin, Sun, Moon, Code } from 'lucide-react';
+import { useTheme } from '../hooks/useTheme';
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
-  const { theme, toggleTheme } = useTheme(); // ← Usamos el tema
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,15 +18,16 @@ function Header() {
   }, []);
 
   const menuItems = [
-    { id: 'inicio', label: 'Inicio', icon: <Home className="w-4 h-4" /> },
-    { id: 'sobre-mi', label: 'Sobre mí', icon: <User className="w-4 h-4" /> },
-    { id: 'skills', label: 'Skills', icon: <Wrench className="w-4 h-4" /> },
-    { id: 'contacto', label: 'Contacto', icon: <Mail className="w-4 h-4" /> }
+    { id: 'inicio',     label: 'Inicio',     icon: <Home    className="w-4 h-4" /> },
+    { id: 'sobre-mi',  label: 'Sobre mí',   icon: <User    className="w-4 h-4" /> },
+    { id: 'skills',    label: 'Skills',     icon: <Wrench  className="w-4 h-4" /> },
+    { id: 'proyectos', label: 'Proyectos',  icon: <Code    className="w-4 h-4" /> },
+    { id: 'contacto',  label: 'Contacto',   icon: <Mail    className="w-4 h-4" /> },
   ];
 
   const socialLinks = [
     { icon: <Github className="w-4 h-4" />, href: 'https://github.com/rogercipa7', label: 'GitHub' },
-    { icon: <Linkedin className="w-4 h-4" />, href: 'https://www.linkedin.com/in/roger-cipagauta-b1626b329/', label: 'LinkedIn' }
+    { icon: <Linkedin className="w-4 h-4" />, href: 'https://www.linkedin.com/in/roger-cipagauta-b1626b329/', label: 'LinkedIn' },
   ];
 
   const handleMenuClick = (id) => {
@@ -49,7 +50,8 @@ function Header() {
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 md:h-20">
-            {/* Menu Desktop - Centrado */}
+
+            {/* Menu Desktop */}
             <ul className="hidden md:flex items-center gap-2 mx-auto">
               {menuItems.map((item) => (
                 <li key={item.id}>
@@ -83,7 +85,6 @@ function Header() {
                 </a>
               ))}
 
-              {/* Botón de tema */}
               <button
                 onClick={toggleTheme}
                 aria-label={`Cambiar a modo ${theme === 'light' ? 'oscuro' : 'claro'}`}
@@ -151,7 +152,6 @@ function Header() {
                   </a>
                 ))}
 
-                {/* Botón de tema (móvil) */}
                 <button
                   onClick={toggleTheme}
                   aria-label={`Cambiar a modo ${theme === 'light' ? 'oscuro' : 'claro'}`}
