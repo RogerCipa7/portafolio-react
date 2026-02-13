@@ -15,7 +15,7 @@ function Projects() {
       title: "PURASER - Limpieza Láser",
       description: "Sitio web corporativo para empresa colombiana especializada en limpieza láser de precisión industrial, con sistema de agendamiento de citas integrado a Google Calendar.",
       tags: ["Laravel", "PHP", "Tailwind CSS", "Google Calendar API", "React"],
-      github: "https://github.com/RogerCipa7/puraser-website",
+      github: null,
       live: "https://puraser.com.co",
       image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       featured: false
@@ -23,9 +23,9 @@ function Projects() {
     {
       title: "Dashboard de Análisis de Ventas Automotrices",
       description: "Plataforma web para gestión integral de ventas automotrices con procesamiento ETL automático, limpieza de datos y visualización interactiva de métricas empresariales.",
-      tags: ["Python", "Flask", "Pandas", "NumPy", "Matplotlib", "SQLite"],
+      tags: ["Python", "Flask", "Pandas", "NumPy", "Matplotlib", "MySQL", "Bootstrap"],
       github: "https://github.com/RogerCipa7/-Dashboard-de-Analisis-de-Ventas-Automotrices",
-      live: "https://dashboard-ventas-automotrices.vercel.app",
+      live: null,
       image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       featured: false
     }
@@ -111,26 +111,30 @@ function Projects() {
 
                 {/* Action Buttons */}
                 <div className="flex gap-3">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg border border-slate-200 dark:border-slate-700/50 hover:bg-slate-200 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition-all"
-                    aria-label={`Ver código fuente de ${project.title}`}
-                  >
-                    <Github className="w-4 h-4" aria-hidden="true" />
-                    <span className="text-sm font-medium">Código</span>
-                  </a>
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-emerald-600 text-white rounded-lg hover:from-blue-700 hover:to-emerald-700 transition-all"
-                    aria-label={`Ver demo en vivo de ${project.title}`}
-                  >
-                    <ExternalLink className="w-4 h-4" aria-hidden="true" />
-                    <span className="text-sm font-medium">Demo</span>
-                  </a>
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg border border-slate-200 dark:border-slate-700/50 hover:bg-slate-200 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition-all"
+                      aria-label={`Ver código fuente de ${project.title}`}
+                    >
+                      <Github className="w-4 h-4" aria-hidden="true" />
+                      <span className="text-sm font-medium">Código</span>
+                    </a>
+                  )}
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-emerald-600 text-white rounded-lg hover:from-blue-700 hover:to-emerald-700 transition-all"
+                      aria-label={`Ver demo en vivo de ${project.title}`}
+                    >
+                      <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                      <span className="text-sm font-medium">Demo</span>
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
