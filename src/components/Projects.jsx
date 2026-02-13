@@ -6,34 +6,28 @@ function Projects() {
       title: "Portafolio Personal",
       description: "Sitio web personal desarrollado con React y Vite, enfocado en mostrar habilidades técnicas y buenas prácticas de desarrollo.",
       tags: ["React", "Vite", "Tailwind CSS", "JavaScript"],
-      github: "https://github.com/roger",
-      live: "https://portfolio-ejemplo.vercel.app",
+      github: "https://github.com/RogerCipa7/portafolio-react",
+      live: "https://portafoliorc.netlify.app/",
       image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       featured: true
     },
     {
-      title: "E-commerce Platform",
-      description: "Plataforma de comercio electrónico con carrito de compras, autenticación y pasarela de pagos integrada.",
-      tags: ["Next.js", "Node.js", "MongoDB", "Stripe"],
-      github: "https://github.com/roger",
-      live: "https://ecommerce-ejemplo.vercel.app",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      title: "PURASER - Limpieza Láser",
+      description: "Sitio web corporativo para empresa colombiana especializada en limpieza láser de precisión industrial, con sistema de agendamiento de citas integrado a Google Calendar.",
+      tags: ["Laravel", "PHP", "Tailwind CSS", "Google Calendar API", "React"],
+      github: "https://github.com/RogerCipa7/puraser-website",
+      live: "https://puraser.com.co",
+      image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      featured: false
     },
     {
-      title: "Task Manager App",
-      description: "Aplicación de gestión de tareas con arrastrar y soltar, notificaciones y sincronización en tiempo real.",
-      tags: ["React", "Firebase", "Redux", "Material-UI"],
-      github: "https://github.com/roger",
-      live: "https://taskmanager-ejemplo.vercel.app",
-      image: "https://images.unsplash.com/photo-1540350394557-8d14678e7f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      title: "Weather Dashboard",
-      description: "Panel de control meteorológico con pronóstico extendido, mapas interactivos y datos históricos.",
-      tags: ["Vue.js", "Chart.js", "API REST", "PWA"],
-      github: "https://github.com/roger",
-      live: "https://weather-ejemplo.vercel.app",
-      image: "https://images.unsplash.com/photo-1592210454359-9043f067919b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      title: "Dashboard de Análisis de Ventas Automotrices",
+      description: "Plataforma web para gestión integral de ventas automotrices con procesamiento ETL automático, limpieza de datos y visualización interactiva de métricas empresariales.",
+      tags: ["Python", "Flask", "Pandas", "NumPy", "Matplotlib", "SQLite"],
+      github: "https://github.com/RogerCipa7/-Dashboard-de-Analisis-de-Ventas-Automotrices",
+      live: "https://dashboard-ventas-automotrices.vercel.app",
+      image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      featured: false
     }
   ];
 
@@ -150,7 +144,7 @@ function Projects() {
             <p className="text-slate-700 dark:text-slate-300">
               ¿Interesado en ver más proyectos?{' '}
               <a
-                href="https://github.com/rogercipa7"
+                href="https://github.com/RogerCipa7"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
