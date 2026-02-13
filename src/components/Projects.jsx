@@ -22,8 +22,8 @@ function Projects() {
     {
       title: "Dashboard de Análisis de Ventas Automotrices",
       description: "Plataforma web para gestión integral de ventas automotrices con procesamiento ETL automático, limpieza de datos y visualización interactiva de métricas empresariales.",
-      tags: ["Python", "Flask", "Pandas", "NumPy", "Matplotlib", "SQLite"],
-      github: "https://github.com/RogerCipa7/-Dashboard-de-Analisis-de-Ventas-Automotrices",
+      tags: ["Python", "Flask", "Pandas", "NumPy", "Matplotlib", "MySQL", "Bootstrap"],
+      github: "https://github.com/RogerCipa7/Dashboard-de-Analisis-de-Ventas-Automotrices",
       image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       featured: false
     }
@@ -59,7 +59,7 @@ function Projects() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {projects.map((project, index) => (
             <div
               key={index}
@@ -109,29 +109,48 @@ function Projects() {
 
                 {/* Action Buttons */}
                 <div className="flex gap-3">
-                  {project.github && (
+                  {/* Botón Código */}
+                  {project.github ? (
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg border border-slate-200 dark:border-slate-700/50 hover:bg-slate-200 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
                       aria-label={`Ver código fuente de ${project.title}`}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg border bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700/50 hover:bg-slate-200 dark:hover:bg-slate-700/50 hover:text-slate-900 dark:hover:text-white transition-all"
                     >
                       <Github className="w-4 h-4" aria-hidden="true" />
                       <span className="text-sm font-medium">Código</span>
                     </a>
+                  ) : (
+                    <span
+                      aria-label="Código no disponible"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg border bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-600 border-slate-200 dark:border-slate-700/30 opacity-60 cursor-not-allowed select-none"
+                    >
+                      <Github className="w-4 h-4" aria-hidden="true" />
+                      <span className="text-sm font-medium">Código</span>
+                    </span>
                   )}
-                  {project.live && (
+
+                  {/* Botón Demo */}
+                  {project.live ? (
                     <a
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-emerald-600 text-white rounded-lg hover:from-blue-700 hover:to-emerald-700 transition-all cursor-pointer"
                       aria-label={`Ver demo en vivo de ${project.title}`}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-emerald-600 text-white hover:from-blue-700 hover:to-emerald-700 transition-all"
                     >
                       <ExternalLink className="w-4 h-4" aria-hidden="true" />
                       <span className="text-sm font-medium">Demo</span>
                     </a>
+                  ) : (
+                    <span
+                      aria-label="Demo no disponible"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-gray-400 to-gray-500 text-gray-200 opacity-60 cursor-not-allowed select-none"
+                    >
+                      <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                      <span className="text-sm font-medium">Demo</span>
+                    </span>
                   )}
                 </div>
               </div>
@@ -141,20 +160,20 @@ function Projects() {
 
         {/* GitHub CTA */}
         <div className="text-center">
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-full hover:border-blue-400 dark:hover:border-blue-500 transition-colors cursor-pointer">
+          <a
+            href="https://github.com/RogerCipa7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-6 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/50 rounded-full hover:border-blue-400 dark:hover:border-blue-500 transition-colors cursor-pointer"
+          >
             <Code className="w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true" />
             <p className="text-slate-700 dark:text-slate-300">
               ¿Interesado en ver más proyectos?{' '}
-              <a
-                href="https://github.com/RogerCipa7"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
-              >
+              <span className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors">
                 Visita mi GitHub
-              </a>
+              </span>
             </p>
-          </div>
+          </a>
         </div>
       </div>
     </section>
