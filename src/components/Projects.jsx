@@ -23,7 +23,7 @@ function Projects() {
       title: "Dashboard de Análisis de Ventas Automotrices",
       description: "Plataforma web para gestión integral de ventas automotrices con procesamiento ETL automático, limpieza de datos y visualización interactiva de métricas empresariales.",
       tags: ["Python", "Flask", "Pandas", "NumPy", "Matplotlib", "MySQL", "Bootstrap"],
-      github: "https://github.com/RogerCipa7/Dashboard-de-Analisis-de-Ventas-Automotrices",
+      github: "https://github.com/RogerCipa7/-Dashboard-de-Analisis-de-Ventas-Automotrices", // Corregido: estaba mal formateado
       image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       featured: false
     }
