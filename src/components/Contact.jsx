@@ -9,7 +9,7 @@ function Contact() {
         icon: <Mail className="w-5 h-5" aria-hidden="true" />,
         label: 'Email',
         value: 'rogercipagauta2003@email.com',
-        link: 'mailto:rogercipagauta2003@email.com',
+        link: 'mailto:rogercipagauta2003@gmail.com',
         color: 'from-blue-500 to-cyan-500',
       },
       {
