@@ -23,7 +23,9 @@ function Skills() {
           { name: 'HTML5', level: 95, icon: '🌐' },
           { name: 'CSS3', level: 90, icon: '🎨' },
           { name: 'JavaScript', level: 88, icon: '⚡' },
+          { name: 'TypeScript', level: 82, icon: '🔷' },
           { name: 'React', level: 85, icon: '⚛️' },
+          { name: 'Next.js', level: 80, icon: '▲' },
           { name: 'Tailwind CSS', level: 90, icon: '💨' },
           { name: 'Bootstrap', level: 85, icon: '🅱️' },
         ],
@@ -74,7 +76,6 @@ function Skills() {
     []
   );
 
-  // ✅ URLs limpias (sin espacios al final)
   const certifications = useMemo(
     () => [
       {
@@ -145,7 +146,7 @@ function Skills() {
   const stats = useMemo(
     () => [
       { label: 'Lenguajes', value: '10+', icon: '💻' },
-      { label: 'Frameworks', value: '8+', icon: '🚀' },
+      { label: 'Frameworks', value: '10+', icon: '🚀' },
       { label: 'Bases de Datos', value: '5+', icon: '🗄️' },
       { label: 'Certificaciones', value: '7+', icon: '🏆' },
     ],
@@ -219,7 +220,6 @@ function Skills() {
               key={category.id}
               className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-xl hover:shadow-blue-100/50 dark:hover:shadow-blue-900/30 transition-all duration-300"
             >
-              {/* ✅ CORRECCIÓN: Ícono visible en ambos modos */}
               <div className="flex items-center gap-3 mb-6">
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${category.color} p-0.5`}>
                   <div className="w-full h-full bg-white dark:bg-slate-900 rounded-[10px] flex items-center justify-center text-slate-900 dark:text-white">
@@ -234,7 +234,7 @@ function Skills() {
 
               {/* Skills List */}
               <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
+                {category.skills.map((skill) => (
                   <div key={`${category.id}-${skill.name}`} className="group">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
