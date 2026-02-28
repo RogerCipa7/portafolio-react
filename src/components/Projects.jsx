@@ -33,9 +33,8 @@ const projects = [
     featured: false,
     category: "Data / Backend",
   },
-
   {
-    title: "Revista Automotriz 2025",
+    title: "Revista Automotriz",
     description: "Landing page editorial de alto impacto para una revista automotriz digital. Catálogo interactivo, modal dinámico, animaciones fluidas y diseño dark/light totalmente responsive construido con Astro.",
     tags: ["Astro", "TypeScript", "Tailwind CSS", "CSS Animations"],
     github: "https://github.com/RogerCipa7/Landing-revista-automotriz",
@@ -51,6 +50,17 @@ const projects = [
     github: "https://github.com/RogerCipa7/pag-ufc-next.js",
     live: "https://pag-ufc-next-js.vercel.app/",
     image: "https://www.estilomma.com/images/noticias/thumbnails/que%CC%81%20es%20la%20ufc_thumb_1300x725.jpg",
+    featured: false,
+    category: "Frontend",
+  },
+
+  {
+    title: "Spotify Clone RC",
+    description: "Clon funcional de Spotify especializado en corridos tumbados, bélicos y regional mexicano. Reproduce previews reales de 30s vía iTunes API, sistema de favoritos persistente, modo oscuro/claro, reproductor completo con shuffle y repeat, y navegación SPA ultrarrápida.",
+    tags: ["React 18", "TypeScript", "Tailwind CSS", "Zustand", "Vite", "iTunes API"],
+    github: "https://github.com/RogerCipa7/Spotify-Clone-React",
+    live: "https://spotify-clone-react-liard.vercel.app/",
+    image: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: false,
     category: "Frontend",
   },
@@ -90,6 +100,9 @@ function ProjectCard({ project }) {
           Destacado
         </div>
       )}
+
+      {/* Spotify badge */}
+      {project.title === "Spotify Clone RC"}
 
       {/* Image */}
       <div className="h-52 overflow-hidden relative">
