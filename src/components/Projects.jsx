@@ -39,7 +39,7 @@ const projects = [
     description: "Landing page editorial de alto impacto para una revista automotriz digital. Catálogo interactivo, modal dinámico, animaciones fluidas y diseño dark/light totalmente responsive construido con Astro.",
     tags: ["Astro", "TypeScript", "Tailwind CSS", "CSS Animations"],
     github: "https://github.com/RogerCipa7/Landing-revista-automotriz",
-    live: "https://landing-revista-automotriz-48mj3ttm2-rogercipagautas-projects.vercel.app",
+    live: "https://landing-revista-automotriz.vercel.app/",
     image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: false,
     category: "Frontend",
