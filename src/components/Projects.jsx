@@ -12,7 +12,16 @@ const projects = [
     featured: true,
     category: "Frontend",
   },
-
+  {
+    title: "GlowBook — Centro de Estética",
+    description: "Plataforma integral para centros de estética con reservas inteligentes en tiempo real, validación de horarios, catálogo de servicios y panel administrativo con dashboard de analíticas e ingresos. Conectado a Supabase.",
+    tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "React Router v6"],
+    github: "https://github.com/RogerCipa7/Estetica-React",
+    live: "https://estetica-react.vercel.app/",
+    image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&q=80&w=800",
+    featured: false,
+    category: "Full Stack",
+  },
   {
     title: "PURASER — Limpieza Láser",
     description: "Sitio web corporativo para empresa colombiana especializada en limpieza láser de precisión industrial, con sistema de agendamiento de citas integrado a Google Calendar.",
@@ -53,7 +62,6 @@ const projects = [
     featured: false,
     category: "Frontend",
   },
-
   {
     title: "Spotify Clone RC",
     description: "Clon funcional de Spotify especializado en corridos tumbados, bélicos y regional mexicano. Reproduce previews reales de 30s vía iTunes API, sistema de favoritos persistente, modo oscuro/claro, reproductor completo con shuffle y repeat, y navegación SPA ultrarrápida.",
@@ -100,9 +108,6 @@ function ProjectCard({ project }) {
           Destacado
         </div>
       )}
-
-      {/* Spotify badge */}
-      {project.title === "Spotify Clone RC"}
 
       {/* Image */}
       <div className="h-52 overflow-hidden relative">
