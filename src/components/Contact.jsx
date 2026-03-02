@@ -42,7 +42,7 @@ function Contact() {
       icon: <Linkedin className="w-5 h-5" />,
       label: 'LinkedIn',
       value: 'LinkedIn Profile',
-      href: 'https://linkedin.com/in/rogercipa',
+      href: 'https://www.linkedin.com/in/roger-cipagauta-b1626b329/',
       color: 'text-indigo-600',
       bg: 'bg-indigo-50 dark:bg-indigo-900/20'
     },
