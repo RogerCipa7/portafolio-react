@@ -70,7 +70,7 @@ function About() {
   return (
     <section
       id="sobre-mi"
-      className="relative py-24 px-4 sm:px-6 overflow-hidden bg-slate-50 dark:bg-slate-900/50"
+      className="relative py-24 px-4 sm:px-6 overflow-hidden bg-slate-50 dark:bg-slate-900/50 scroll-mt-24"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header Block */}

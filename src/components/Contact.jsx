@@ -70,7 +70,7 @@ function Contact() {
   };
 
   return (
-    <section id="contacto" className="relative py-32 px-4 sm:px-6 bg-white dark:bg-slate-950 overflow-hidden">
+    <section id="contacto" className="relative py-32 px-4 sm:px-6 bg-white dark:bg-slate-950 overflow-hidden scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">

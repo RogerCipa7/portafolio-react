@@ -48,7 +48,7 @@ function Hero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden bg-white dark:bg-slate-950"
+      className="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden bg-white dark:bg-slate-950 scroll-mt-24"
     >
       {/* Dynamic Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

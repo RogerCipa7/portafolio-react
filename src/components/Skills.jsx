@@ -154,7 +154,7 @@ function Skills() {
   }, [activeCategory, skillCategories]);
 
   return (
-    <section id="skills" className="relative py-24 px-4 sm:px-6 bg-white dark:bg-slate-950 overflow-hidden">
+    <section id="skills" className="relative py-24 px-4 sm:px-6 bg-white dark:bg-slate-950 overflow-hidden scroll-mt-24">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-16">

@@ -47,17 +47,19 @@ function Header() {
   const handleMenuClick = (id) => {
     setActiveSection(id);
     setIsMobileMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      const headerOffset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
+    // Use a small delay for mobile to ensure the menu closing animation doesn't interfere with scroll
+    const delay = isMobileMenuOpen ? 300 : 0;
+
+    setTimeout(() => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }, delay);
   };
 
   return (
