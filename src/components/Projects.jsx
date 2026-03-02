@@ -1,8 +1,26 @@
-import { useState } from 'react';
-import { ExternalLink, Github, Sparkles, Code, ArrowRight } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import {
+  ExternalLink,
+  Github,
+  Code2,
+  Database,
+  Globe,
+  Settings,
+  Layout,
+  Layers,
+  ChevronRight,
+  ArrowRight,
+  ShieldCheck,
+  Zap,
+  Box,
+  Sparkles,
+  X
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const projects = [
+const projectsData = [
   {
+    id: 1,
     title: "Portafolio Personal",
     description: "Sitio web personal desarrollado con React y Vite, enfocado en mostrar habilidades técnicas y buenas prácticas de desarrollo.",
     tags: ["React", "Vite", "Tailwind CSS", "JavaScript"],
@@ -10,19 +28,23 @@ const projects = [
     live: "https://portafoliorc.netlify.app/",
     image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: true,
-    category: "Frontend",
+    category: "frontend",
+    icon: <Layout className="w-8 h-8" />
   },
   {
+    id: 2,
     title: "GlowBook — Centro de Estética",
     description: "Plataforma integral para centros de estética con reservas inteligentes en tiempo real, validación de horarios, catálogo de servicios y panel administrativo con dashboard de analíticas e ingresos. Conectado a Supabase.",
     tags: ["React", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "React Router v6"],
     github: "https://github.com/RogerCipa7/Estetica-React",
     live: "https://estetica-react.vercel.app/",
     image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&q=80&w=800",
-    featured: false,
-    category: "Full Stack",
+    featured: true,
+    category: "fullstack",
+    icon: <Zap className="w-8 h-8" />
   },
   {
+    id: 3,
     title: "PURASER — Limpieza Láser",
     description: "Sitio web corporativo para empresa colombiana especializada en limpieza láser de precisión industrial, con sistema de agendamiento de citas integrado a Google Calendar.",
     tags: ["Laravel", "PHP", "Tailwind CSS", "Google Calendar API", "React"],
@@ -30,9 +52,11 @@ const projects = [
     live: "https://puraser.com.co",
     image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: false,
-    category: "Full Stack",
+    category: "fullstack",
+    icon: <ShieldCheck className="w-8 h-8" />
   },
   {
+    id: 4,
     title: "Dashboard Ventas Automotrices",
     description: "Plataforma web para gestión integral de ventas automotrices con procesamiento ETL automático, limpieza de datos y visualización interactiva de métricas empresariales.",
     tags: ["Python", "Flask", "Pandas", "NumPy", "MySQL", "Bootstrap"],
@@ -40,9 +64,11 @@ const projects = [
     live: null,
     image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: false,
-    category: "Data / Backend",
+    category: "backend",
+    icon: <Database className="w-8 h-8" />
   },
   {
+    id: 5,
     title: "Revista Automotriz",
     description: "Landing page editorial de alto impacto para una revista automotriz digital. Catálogo interactivo, modal dinámico, animaciones fluidas y diseño dark/light totalmente responsive construido con Astro.",
     tags: ["Astro", "TypeScript", "Tailwind CSS", "CSS Animations"],
@@ -50,9 +76,11 @@ const projects = [
     live: "https://landing-revista-automotriz.vercel.app/",
     image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: false,
-    category: "Frontend",
+    category: "frontend",
+    icon: <Code2 className="w-8 h-8" />
   },
   {
+    id: 6,
     title: "UFC Fan — Mundo del MMA",
     description: "Plataforma web dedicada a los amantes de las MMA. Explora luchadores, disciplinas, eventos y la historia del octágono con animaciones suaves y diseño 100% responsivo.",
     tags: ["Next.js 14", "TypeScript", "Tailwind CSS", "Lucide React"],
@@ -60,9 +88,11 @@ const projects = [
     live: "https://pag-ufc-next-js.vercel.app/",
     image: "https://www.estilomma.com/images/noticias/thumbnails/que%CC%81%20es%20la%20ufc_thumb_1300x725.jpg",
     featured: false,
-    category: "Frontend",
+    category: "frontend",
+    icon: <ShieldCheck className="w-8 h-8" />
   },
   {
+    id: 7,
     title: "Spotify Clone RC",
     description: "Clon funcional de Spotify especializado en corridos tumbados, bélicos y regional mexicano. Reproduce previews reales de 30s vía iTunes API, sistema de favoritos persistente, modo oscuro/claro, reproductor completo con shuffle y repeat, y navegación SPA ultrarrápida.",
     tags: ["React 18", "TypeScript", "Tailwind CSS", "Zustand", "Vite", "iTunes API"],
@@ -70,282 +100,261 @@ const projects = [
     live: "https://spotify-clone-react-liard.vercel.app/",
     image: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: false,
-    category: "Frontend",
+    category: "frontend",
+    icon: <Sparkles className="w-8 h-8" />
   },
 ];
 
-function ProjectCard({ project }) {
-  const [hovered, setHovered] = useState(false);
+function Projects() {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const openLink = (url) => {
-    if (url) window.open(url, '_blank', 'noopener,noreferrer');
-  };
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === 'all') return projectsData;
+    return projectsData.filter(project => project.category === activeCategory);
+  }, [activeCategory]);
+
+  const categories = [
+    { id: 'all', label: 'Todos', icon: <Layers className="w-4 h-4" /> },
+    { id: 'frontend', label: 'Frontend', icon: <Layout className="w-4 h-4" /> },
+    { id: 'fullstack', label: 'Full Stack', icon: <Box className="w-4 h-4" /> },
+    { id: 'backend', label: 'Backend/Data', icon: <Database className="w-4 h-4" /> },
+  ];
 
   return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className={`
-        relative rounded-2xl overflow-hidden backdrop-blur-md
-        transition-all duration-400
-        border
-        ${project.featured
-          ? 'md:col-span-2 border-indigo-500/30 dark:border-indigo-500/30 bg-gradient-to-br from-indigo-50/80 to-white/90 dark:from-indigo-950/60 dark:to-slate-950/95'
-          : 'border-slate-200/80 dark:border-slate-700/60 bg-white/80 dark:bg-slate-900/75'
-        }
-        ${hovered
-          ? project.featured
-            ? 'border-violet-400/50 dark:border-violet-500/55 -translate-y-1 shadow-2xl shadow-indigo-200/60 dark:shadow-indigo-900/40'
-            : 'border-emerald-400/40 dark:border-emerald-500/40 -translate-y-1 shadow-2xl shadow-emerald-100/60 dark:shadow-emerald-900/30'
-          : 'shadow-sm'
-        }
-      `}
-    >
-      {/* Featured badge */}
-      {project.featured && (
-        <div className="absolute top-4 right-4 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-xs font-bold tracking-wide bg-gradient-to-r from-violet-600 to-pink-600 shadow-lg shadow-violet-500/40">
-          <Sparkles size={11} />
-          Destacado
-        </div>
-      )}
-
-      {/* Image */}
-      <div className="h-52 overflow-hidden relative">
-        <img
-          src={project.image}
-          alt={project.title}
-          className={`w-full h-full object-cover transition-transform duration-700 ${hovered ? 'scale-[1.07]' : 'scale-100'}`}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-transparent to-slate-100/70 dark:from-black/10 dark:via-transparent dark:to-slate-950/82" />
-
-        {/* Category chip */}
-        <div className="absolute bottom-3.5 left-4 px-3 py-1 rounded-lg text-[10px] tracking-widest uppercase backdrop-blur-md bg-white/70 dark:bg-slate-950/70 border border-indigo-200/60 dark:border-indigo-500/30 text-slate-600 dark:text-slate-300">
-          {project.category}
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-extrabold tracking-tight leading-snug mb-2.5 text-slate-900 dark:text-slate-50">
-          {project.title}
-        </h3>
-        <p className="text-sm leading-relaxed mb-5 text-slate-500 dark:text-slate-400">
-          {project.description}
-        </p>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
-          {project.tags.map(tag => (
-            <span
-              key={tag}
-              className="px-2.5 py-1 rounded-md text-[11px] font-medium tracking-wide
-                bg-slate-100 dark:bg-slate-800/85
-                border border-slate-200 dark:border-slate-700/90
-                text-slate-600 dark:text-slate-400"
+    <section id="proyectos" className="relative py-32 px-4 sm:px-6 bg-slate-50 dark:bg-slate-900/20 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+          <div className="max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 dark:bg-primary-900/30 border border-primary-100 dark:border-primary-800/50 text-primary-600 dark:text-primary-400 text-xs font-bold uppercase tracking-wider mb-4"
             >
-              {tag}
-            </span>
+              <Code2 className="w-3 h-3" />
+              Portafolio
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight"
+            >
+              Proyectos <span className="text-primary-600">Destacados</span>
+            </motion.h2>
+          </div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-slate-500 dark:text-slate-400 text-lg max-w-sm font-medium"
+          >
+            Una selección de mis trabajos más recientes, enfocados en calidad de código y UX.
+          </motion.p>
+        </div>
+
+        {/* Categories Filter */}
+        <div className="flex flex-wrap gap-2 mb-12">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
+              className={`flex items-center gap-2 px-6 py-3 rounded-2xl font-bold text-sm transition-all duration-300 ${activeCategory === cat.id
+                ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xl scale-105'
+                : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800'
+                }`}
+            >
+              {cat.icon}
+              {cat.label}
+            </button>
           ))}
         </div>
 
-        {/* Divider */}
-        <div className="h-px mb-5 bg-slate-200 dark:bg-slate-700/50" />
+        {/* Projects Grid */}
+        <motion.div
+          layout
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
+              <motion.div
+                layout
+                key={project.id || project.title}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4 }}
+                className="group relative bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-500"
+              >
+                {/* Project Image Wrapper */}
+                <div className="relative h-64 overflow-hidden">
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 flex items-center justify-center text-slate-400 group-hover:scale-110 transition-transform duration-700">
+                      {project.icon}
+                    </div>
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                    <div className="flex gap-3">
+                      {project.github && (
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-3 bg-white/10 backdrop-blur-md rounded-xl text-white hover:bg-white/20 transition-all">
+                          <Github className="w-5 h-5" />
+                        </a>
+                      )}
+                      {project.live && (
+                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="p-3 bg-primary-600 rounded-xl text-white hover:bg-primary-700 transition-all">
+                          <ExternalLink className="w-5 h-5" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
 
-        {/* Buttons */}
-        <div className="flex gap-2.5">
-          {/* Ghost — Código */}
-          <button
-            onClick={() => openLink(project.github)}
-            disabled={!project.github}
-            className={`
-              flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-[13px] font-semibold
-              border transition-all duration-200
-              ${project.github
-                ? 'cursor-pointer border-slate-300 dark:border-slate-600/70 bg-slate-50 dark:bg-slate-800/70 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/80 hover:text-slate-900 dark:hover:text-white hover:border-slate-400 dark:hover:border-slate-500'
-                : 'cursor-not-allowed border-slate-200/60 dark:border-slate-700/30 bg-slate-50/50 dark:bg-slate-900/40 text-slate-400 dark:text-slate-600 opacity-60'
-              }
-            `}
-          >
-            <Github size={14} />
-            Código
-          </button>
+                {/* Project Content */}
+                <div className="p-8">
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tags.slice(0, 3).map(tag => (
+                      <span key={tag} className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-black uppercase tracking-widest">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary-600 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
+                    {project.description}
+                  </p>
 
-          {/* Gradient — Demo */}
-          <button
-            onClick={() => openLink(project.live)}
-            disabled={!project.live}
-            className={`
-              flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-[13px] font-semibold
-              border-none transition-all duration-200
-              ${project.live
-                ? 'cursor-pointer bg-gradient-to-r from-blue-600 to-emerald-500 text-white shadow-md shadow-blue-500/30 hover:from-blue-700 hover:to-emerald-600 hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-px'
-                : 'cursor-not-allowed bg-gradient-to-r from-slate-400 to-slate-500 dark:from-slate-600 dark:to-slate-700 text-slate-200 dark:text-slate-400 opacity-60'
-              }
-            `}
-          >
-            <ExternalLink size={14} />
-            Demo
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+                  <div className="flex items-center justify-between pt-6 border-t border-slate-100 dark:border-slate-800">
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                      {project.category}
+                    </span>
+                    <button
+                      onClick={() => setSelectedProject(project)}
+                      className="flex items-center gap-1 text-primary-600 font-bold text-sm opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all cursor-pointer"
+                    >
+                      Ver detalles <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
-export default function Projects() {
-  return (
-    <section
-      id="proyectos"
-      aria-labelledby="projects-heading"
-      className="relative py-20 px-6 overflow-hidden
-        bg-gradient-to-br from-slate-50 via-white to-blue-50
-        dark:from-slate-900 dark:via-slate-900 dark:to-slate-950"
-    >
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap');
+        {/* Project Detail Modal */}
+        <AnimatePresence>
+          {selectedProject && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setSelectedProject(null)}
+                className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4 sm:p-6"
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                className="fixed inset-0 flex items-center justify-center z-[101] pointer-events-none p-4"
+              >
+                <div className="bg-white dark:bg-slate-900 w-full max-w-4xl max-h-[90vh] rounded-[2rem] overflow-hidden shadow-2xl pointer-events-auto flex flex-col md:flex-row border border-slate-200 dark:border-slate-800">
+                  {/* Modal Image */}
+                  <div className="md:w-1/2 h-64 md:h-auto relative overflow-hidden">
+                    {selectedProject.image ? (
+                      <img
+                        src={selectedProject.image}
+                        alt={selectedProject.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 flex items-center justify-center text-slate-400">
+                        {selectedProject.icon}
+                      </div>
+                    )}
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 rounded-full bg-primary-600 text-white text-[10px] font-black uppercase tracking-widest shadow-lg">
+                        {selectedProject.category}
+                      </span>
+                    </div>
+                  </div>
 
-        /* Blobs */
-        .pj-blob { position:absolute; border-radius:50%; pointer-events:none; }
-        .pj-blob-1 {
-          width:600px; height:600px; top:-120px; left:-160px;
-          background: radial-gradient(circle, rgba(37,99,235,0.09) 0%, transparent 70%);
-          animation: pjDriftA 14s ease-in-out infinite alternate;
-        }
-        .pj-blob-2 {
-          width:480px; height:480px; bottom:-80px; right:-100px;
-          background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
-          animation: pjDriftB 17s ease-in-out infinite alternate;
-        }
-        .pj-blob-3 {
-          width:320px; height:320px; top:40%; left:48%;
-          transform:translate(-50%,-50%);
-          background: radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%);
-          animation: pjDriftA 20s ease-in-out infinite alternate-reverse;
-        }
-        @keyframes pjDriftA { from{transform:translate(0,0)} to{transform:translate(26px,16px)} }
-        @keyframes pjDriftB { from{transform:translate(0,0)} to{transform:translate(-20px,12px)} }
+                  {/* Modal Content */}
+                  <div className="md:w-1/2 p-8 md:p-12 overflow-y-auto">
+                    <div className="flex justify-between items-start mb-6">
+                      <h3 className="text-3xl font-black text-slate-900 dark:text-white leading-tight">
+                        {selectedProject.title}
+                      </h3>
+                      <button
+                        onClick={() => setSelectedProject(null)}
+                        className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+                      >
+                        <X className="w-6 h-6" />
+                      </button>
+                    </div>
 
-        /* Subtle grid */
-        .pj-grid-bg {
-          position:absolute; inset:0; pointer-events:none;
-          background-image:
-            linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
-          background-size:60px 60px;
-        }
-        :not(.dark) .pj-grid-bg {
-          background-image:
-            linear-gradient(rgba(99,102,241,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(99,102,241,0.06) 1px, transparent 1px);
-        }
+                    <div className="space-y-8">
+                      <div>
+                        <h4 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Descripción del Proyecto</h4>
+                        <p className="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                          {selectedProject.description}
+                        </p>
+                      </div>
 
-        /* Projects grid */
-        .pj-cards {
-          display:grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap:20px;
-          margin-bottom:56px;
-        }
-        @media(max-width:768px){
-          .pj-cards { grid-template-columns:1fr; }
-          .pj-cards > * { grid-column: span 1 !important; }
-        }
+                      <div>
+                        <h4 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Tecnologías Utilizadas</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedProject.tags.map(tag => (
+                            <span key={tag} className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-white text-xs font-bold border border-slate-200 dark:border-slate-700">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
 
-        /* Badge pulse */
-        .pj-badge { position:relative; display:inline-block; margin-bottom:20px; }
-        .pj-badge::after {
-          content:''; position:absolute; inset:-1px; border-radius:999px;
-          background:linear-gradient(135deg,#818cf8,#34d399);
-          z-index:-1; opacity:0.35;
-          animation: pjBadge 3s ease-in-out infinite;
-        }
-        @keyframes pjBadge {
-          0%,100%{opacity:0.25;transform:scale(1)}
-          50%{opacity:0.55;transform:scale(1.02)}
-        }
-
-        /* CTA pill */
-        .pj-cta {
-          display:inline-flex; align-items:center; gap:10px;
-          padding:13px 28px; border-radius:999px;
-          font-size:14px; font-weight:500; font-family:inherit;
-          cursor:pointer; text-decoration:none;
-          backdrop-filter:blur(8px);
-          transition:all 0.3s;
-        }
-      `}</style>
-
-      {/* Background */}
-      <div className="pj-blob pj-blob-1" />
-      <div className="pj-blob pj-blob-2" />
-      <div className="pj-blob pj-blob-3" />
-      <div className="pj-grid-bg" />
-
-      <div className="relative z-10 max-w-5xl mx-auto">
-
-        {/* ── HEADER ── */}
-        <div className="text-center mb-14">
-          <div className="pj-badge">
-            <div className="flex items-center gap-2 px-5 py-2 rounded-full text-[13px] font-semibold tracking-wide
-              bg-indigo-100/80 dark:bg-indigo-500/10
-              border border-indigo-200 dark:border-indigo-500/22
-              text-indigo-700 dark:text-indigo-300
-              backdrop-blur-md">
-              <Sparkles size={14} />
-              Mis Trabajos
-            </div>
-          </div>
-
-          <h2
-            id="projects-heading"
-            className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight leading-tight mb-4
-              text-slate-900 dark:text-slate-50"
-          >
-            Proyectos{' '}
-            <span className="bg-gradient-to-r from-blue-500 to-emerald-500 bg-clip-text text-transparent">
-              Destacados
-            </span>
-          </h2>
-
-          <p className="text-base leading-relaxed max-w-md mx-auto text-slate-500 dark:text-slate-400">
-            Una colección de trabajos recientes que muestran mi experiencia
-            en desarrollo web moderno.
-          </p>
-        </div>
-
-        {/* ── CARDS ── */}
-        <div className="pj-cards">
-          {projects.map((p, i) => <ProjectCard key={i} project={p} />)}
-        </div>
-
-        {/* ── CTA ── */}
-        <div className="text-center">
-          <a
-            href="https://github.com/RogerCipa7"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pj-cta
-              bg-white/80 dark:bg-slate-800/80
-              border border-slate-200 dark:border-slate-700/55
-              text-slate-600 dark:text-slate-400
-              hover:border-blue-400 dark:hover:border-blue-500
-              hover:text-slate-900 dark:hover:text-slate-100
-              hover:bg-white dark:hover:bg-slate-800
-              hover:shadow-lg hover:shadow-blue-100/60 dark:hover:shadow-blue-900/20
-              hover:-translate-y-0.5"
-          >
-            <Code size={16} className="text-blue-500 dark:text-blue-400" />
-            <span>
-              ¿Interesado en ver más?{' '}
-              <span className="font-bold bg-gradient-to-r from-blue-500 to-emerald-500 bg-clip-text text-transparent">
-                Visita mi GitHub
-              </span>
-            </span>
-            <ArrowRight size={14} className="text-emerald-500" />
-          </a>
-        </div>
-
+                      <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-100 dark:border-slate-800">
+                        {selectedProject.live && (
+                          <a
+                            href={selectedProject.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 flex items-center justify-center gap-2 px-8 py-4 bg-primary-600 text-white rounded-2xl font-bold hover:bg-primary-700 transition-all shadow-lg shadow-primary-500/25"
+                          >
+                            <ExternalLink className="w-5 h-5" />
+                            Ver Proyecto
+                          </a>
+                        )}
+                        {selectedProject.github && (
+                          <a
+                            href={selectedProject.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold hover:opacity-90 transition-all shadow-lg"
+                          >
+                            <Github className="w-5 h-5" />
+                            Código Fuente
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
 }
+
+export default Projects;
