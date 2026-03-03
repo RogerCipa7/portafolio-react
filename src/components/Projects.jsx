@@ -14,7 +14,9 @@ import {
   Zap,
   Box,
   Sparkles,
-  X
+  X,
+  Briefcase,
+  FlaskConical
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -29,6 +31,7 @@ const projectsData = [
     image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: true,
     category: "frontend",
+    type: "personal",
     icon: <Layout className="w-8 h-8" />
   },
   {
@@ -41,6 +44,7 @@ const projectsData = [
     image: "https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&q=80&w=800",
     featured: true,
     category: "fullstack",
+    type: "personal",
     icon: <Zap className="w-8 h-8" />
   },
   {
@@ -53,6 +57,7 @@ const projectsData = [
     image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: false,
     category: "fullstack",
+    type: "profesional",
     icon: <ShieldCheck className="w-8 h-8" />
   },
   {
@@ -65,6 +70,7 @@ const projectsData = [
     image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: false,
     category: "backend",
+    type: "personal",
     icon: <Database className="w-8 h-8" />
   },
   {
@@ -77,6 +83,7 @@ const projectsData = [
     image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: false,
     category: "frontend",
+    type: "personal",
     icon: <Code2 className="w-8 h-8" />
   },
   {
@@ -89,10 +96,24 @@ const projectsData = [
     image: "https://www.estilomma.com/images/noticias/thumbnails/que%CC%81%20es%20la%20ufc_thumb_1300x725.jpg",
     featured: false,
     category: "frontend",
+    type: "personal",
     icon: <ShieldCheck className="w-8 h-8" />
   },
   {
     id: 7,
+    title: "Iron Core Gym 💀",
+    description: "Landing page brutalista para un gimnasio premium de alto rendimiento en Bogotá. Diseño B2C con tipografía masiva, grain táctil, contraste extremo y animaciones de scroll. Arquitectura component-driven estricta con 8 secciones visuales independientes.",
+    tags: ["Next.js 16", "TypeScript", "Tailwind CSS", "Framer Motion", "Turbopack"],
+    github: "https://github.com/RogerCipa7/Gym-Next",
+    live: "https://gym-next-theta.vercel.app/",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop",
+    featured: true,
+    category: "frontend",
+    type: "personal",
+    icon: <Zap className="w-8 h-8" />
+  },
+  {
+    id: 8,
     title: "Spotify Clone RC",
     description: "Clon funcional de Spotify especializado en corridos tumbados, bélicos y regional mexicano. Reproduce previews reales de 30s vía iTunes API, sistema de favoritos persistente, modo oscuro/claro, reproductor completo con shuffle y repeat, y navegación SPA ultrarrápida.",
     tags: ["React 18", "TypeScript", "Tailwind CSS", "Zustand", "Vite", "iTunes API"],
@@ -101,6 +122,7 @@ const projectsData = [
     image: "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     featured: false,
     category: "frontend",
+    type: "personal",
     icon: <Sparkles className="w-8 h-8" />
   },
 ];
@@ -201,6 +223,28 @@ function Projects() {
                       {project.icon}
                     </div>
                   )}
+
+                  {/* Type badge */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <div className={`flex items-center gap-1.5 px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg backdrop-blur-md border
+                      ${project.type === 'profesional'
+                        ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30 ring-1 ring-emerald-500/20'
+                        : 'bg-primary-500/20 text-primary-600 dark:text-primary-400 border-primary-500/30 ring-1 ring-primary-500/20'
+                      }`}>
+                      {project.type === 'profesional' ? (
+                        <>
+                          <Briefcase className="w-3 h-3" />
+                          <span>Profesional</span>
+                        </>
+                      ) : (
+                        <>
+                          <FlaskConical className="w-3 h-3" />
+                          <span>Personal</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
                     <div className="flex gap-3">
                       {project.github && (
@@ -282,7 +326,8 @@ function Projects() {
                       </div>
                     )}
                     <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 rounded-full bg-primary-600 text-white text-[10px] font-black uppercase tracking-widest shadow-lg">
+                      <span className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-primary-600/90 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest shadow-xl border border-white/20">
+                        <Box className="w-3 h-3" />
                         {selectedProject.category}
                       </span>
                     </div>
