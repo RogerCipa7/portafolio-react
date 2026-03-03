@@ -135,10 +135,13 @@ function About() {
             </motion.div>
 
             <motion.div variants={itemVariants} className="pt-4">
-              <button className="flex items-center gap-2 group text-primary-600 dark:text-primary-400 font-bold text-lg">
+              <a
+                href="#certificaciones"
+                className="inline-flex items-center gap-2 group text-primary-600 dark:text-primary-400 font-bold text-lg cursor-pointer"
+              >
                 Explorar mis certificaciones
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </a>
             </motion.div>
           </motion.div>
 

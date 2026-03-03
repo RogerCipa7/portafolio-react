@@ -251,7 +251,7 @@ function Skills() {
         </motion.div>
 
         {/* Certifications Section */}
-        <div className="mt-20">
+        <div id="certificaciones" className="mt-20 scroll-mt-24">
           <div className="text-center mb-12">
             <div className="inline-block mb-4" role="status">
               <span className="px-4 py-2 bg-emerald-100 border border-emerald-200 text-emerald-700 dark:bg-emerald-900/30 dark:border-emerald-800/50 dark:text-emerald-400 text-sm font-medium flex items-center gap-2">

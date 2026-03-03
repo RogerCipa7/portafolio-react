@@ -7,9 +7,9 @@ function Hero() {
 
   const roles = [
     "Ingeniero de Sistemas",
-    "Desarrollador Full Stack",
-    "Especialista en Bases de Datos",
-    "Arquitecto de Software"
+    "Desarrollador Frontend",
+    "Bases en Bases de Datos",
+    "Ruta hacia Desarrollador Full Stack"
   ];
 
   useEffect(() => {
