@@ -36,6 +36,7 @@ function Skills() {
         color: 'from-blue-500 to-cyan-500',
         skills: [
           { name: 'React / Next.js', level: 90, icon: <Layout className="w-4 h-4" /> },
+          { name: 'Angular', level: 85, icon: <Layout className="w-4 h-4" /> },
           { name: 'TypeScript', level: 85, icon: <Code2 className="w-4 h-4" /> },
           { name: 'JavaScript ES6+', level: 92, icon: <Zap className="w-4 h-4" /> },
           { name: 'Tailwind CSS', level: 95, icon: <Palette className="w-4 h-4" /> },
@@ -76,9 +77,8 @@ function Skills() {
         color: 'from-slate-600 to-slate-800',
         skills: [
           { name: 'Git / GitHub', level: 95, icon: <Code2 className="w-4 h-4" /> },
-          { name: 'Docker / CI-CD', level: 75, icon: <Box className="w-4 h-4" /> },
           { name: 'Linux / Bash', level: 88, icon: <Terminal className="w-4 h-4" /> },
-          { name: 'Power BI / Analysis', level: 85, icon: <Search className="w-4 h-4" /> },
+          { name: 'Power BI / Analysis', level: 50, icon: <Search className="w-4 h-4" /> },
           { name: 'Clean Architecture', level: 90, icon: <ShieldCheck className="w-4 h-4" /> },
         ],
       },
